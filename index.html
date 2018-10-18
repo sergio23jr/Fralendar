@@ -13,9 +13,33 @@
 
 <body>
 
+    <div class="login-form">
+        <h1 class="login-title">Login</h1>
+        <input class="email" placeholder="Email">
+        <input class="password" type="password" placeholder="Password">
+        <button class="signin">Sign In</button>
+        <button class="register">Register</button>
+    </div>
+    <div class="login-success">
+        <div>
+            Login Successful
+            Name: <span class="name-display"></span>
+            Zip Code: <span class="zip-display"></span>
+            <button class="logout">Logout</button>
+        </div>
+    </div>
+    <div class="input-name-zip">
+        Please input your name and zip code:
+        <input class="name-input" placeholder="Name">
+        <input class="zip-input" placeholder="Zip">
+        <button class="submit-name-zip">Submit Name & Zip</button>
+    </div>
+
+
     <script src='https://code.jquery.com/jquery-3.3.1.min.js' integrity='sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8='
         crossorigin='anonymous'></script>
     <script src="https://www.gstatic.com/firebasejs/5.5.4/firebase.js"></script>
+    <script src="assets/login.js"></script>
     <script src="assets/fralendar.js"></script>
 </body>
 
