@@ -11,6 +11,7 @@ firebase.initializeApp(config);
 
 //Create user object - Must be on global scope so it can be accessed by other script pages
 var user = {};
+var userList = {};
 var newUser = false;
 
 //Login Event
@@ -78,6 +79,10 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
             writeUserData(firebaseUser);
             getNameAndZip();
         }
+        //If user account already has a name then populate the User List
+        if (user.name != undefined) {
+            getUserList();
+        }
         //Shows the div of the login success box
         $(".login-success").show();
         $(".login-form").hide();
@@ -101,7 +106,8 @@ function getNameAndZip() {
         $(".input-name-zip").show();
     } else {
         //This will run when there is both a user.name and a user.zip
-        $(".input-name-zip").hide()
+        $(".input-name-zip").hide();
+        getUserList();
     }
 };
 
@@ -144,6 +150,29 @@ function clearInputForms() {
     $(".email").val(``);
     $(".password").val(``);
 }
+
+function getUserList() {
+    firebase.database().ref("/userlist/").on("value", function (snap) {
+        console.log(snap.val());
+        var currentID = user.ID;
+        var currentName = user.name;
+        var obj = snap.val();
+        userList[currentID] = currentName;
+        for (var key in obj) {
+            if (key != currentID) {
+                var otherUserID = key;
+                userList[otherUserID] = obj[otherUserID];
+            };
+        };
+        console.log(userList)
+    });
+    writeUserList();
+};
+
+function writeUserList() {
+    var pushList = userList;
+    firebase.database().ref("/userlist/").set(pushList);
+};
 
 $(".login-success").hide();
 $(".input-name-zip").hide();
