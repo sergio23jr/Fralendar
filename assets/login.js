@@ -79,7 +79,7 @@ $(".submit-name-zip").on("click", e => {
     };
     //Checks if the value is 6. If it is not it will not continue to firebase and it will stay at the current screen.
     //It needs to be exactly 6 numbers as that is what we are using to pull the API from
-    if (zipNumCount === 6) {
+    if (zipNumCount === 5 && zipCheck.length === 5) {
         //Maybe not the best pratice having it set the whole user log again, but it's what I can think of now
         $.when(firebase.database().ref('users/' + user.ID).set({
             name: user.name,

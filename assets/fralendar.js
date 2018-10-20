@@ -1,3 +1,7 @@
+//Object which holds everyone's freetime
+var freetime = {};
+var userFreetime = {};
+
 // listener event for buttons 
 $(".btn").on("click", function () {
     var value = $(this).val();
@@ -18,3 +22,19 @@ $(".btn").on("click", function () {
     }
 
 })
+
+//Adds a listener to freetime so when new freetime is selected it pulls to the object
+firebase.database().ref("/freetime/").once("value").then(function (snap) {
+    freetime = snap.val();
+    console.log(freetime);
+});
+
+$(".calendar-btn").on("click", function () {
+    //Pulls the value and the ID from each button to be used in firebase
+    var buttonTime = $(this).val();
+    var attribute = $(this).attr(`id`);
+    userFreetime[attribute] = buttonTime;
+    freetime[user.ID] = userFreetime;
+    console.log(freetime);
+    firebase.database().ref(`/freetime/`).set(freetime);
+});
