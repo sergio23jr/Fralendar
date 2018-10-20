@@ -79,7 +79,7 @@ $(".submit-name-zip").on("click", e => {
     };
     //Checks if the value is 6. If it is not it will not continue to firebase and it will stay at the current screen.
     //It needs to be exactly 6 numbers as that is what we are using to pull the API from
-    if (zipNumCount === 6) {
+    if (zipNumCount === 5 && zipCheck.length === 5) {
         //Maybe not the best pratice having it set the whole user log again, but it's what I can think of now
         $.when(firebase.database().ref('users/' + user.ID).set({
             name: user.name,
@@ -110,6 +110,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
         //Important to grab this before doing things below so it can knows where to search in firebase for the user info
         user.ID = firebaseUser.uid;
         getUserData();
+        getUserCalendar();
         //Checks if the user has a name or zip in firebase
         //If they do not then likely new users and writes the data to firebase and asks for name and zip
         //Needs undefined if they are a new user
