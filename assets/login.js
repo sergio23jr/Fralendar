@@ -110,6 +110,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
         //Important to grab this before doing things below so it can knows where to search in firebase for the user info
         user.ID = firebaseUser.uid;
         getUserData();
+        getUserCalendar();
         //Checks if the user has a name or zip in firebase
         //If they do not then likely new users and writes the data to firebase and asks for name and zip
         //Needs undefined if they are a new user
