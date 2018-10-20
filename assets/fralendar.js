@@ -1,3 +1,6 @@
+// console.log just to help me out figuring out formulas
+console.log(moment().format("X"));
+
 //Object which holds everyone's freetime
 var freetime = {};
 var userFreeTime = {};
@@ -23,12 +26,11 @@ var dayNum = [
     moment().add(5, "days").date(),
     moment().add(6, "days").date(),
 ];
+var timeStamps = [6, 12, 18]
 
 // array for out button value names
 var timeOfDay = ["Morning", "Afternoon", "Night"]
 
-// console.log just to help me out figuring out formulas
-console.log(moment().add(1, "days").format("dddd"));
 
 
 
@@ -68,11 +70,9 @@ secondRowDiv.addClass(["row", "text-center"])
 secondRowDiv.prepend(
     // Lines will dynamically give us 
     // "Month: "current Month"
-    // Week: "Current Week"
-    // Days: "First day of week/Last day of week"
+    // Days: "Current Date/ 7th date ahead"
     `<div class="day col-md-2"> Month: ${moment().month()} 
-    <br> Week: ${moment().week()} 
-    <br> Days: ${moment().startOf("week").date()}-${moment().endOf("week").date()}</div>`)
+    <br> Days: ${moment().date()}-${moment().add(6, "days").date()}</div>`)
 
 // Loop to dynamically create of dates
 for (var j = 0; j < 7; j++) {
@@ -90,11 +90,11 @@ for (var j = 0; j < 7; j++) {
         // Line will output
         // id : "Specific Day + Specific Time"
         // value: 0 initial starting value
-        //still working on this line to dynamically give us unix time for each button
+        // data-unix: Specific date with specific time of day
         btn.attr({
             "id": daysOfWeek[j] + timeOfDay[k],
             "value": 0,
-            "data-moment": moment().format()
+            "data-unix": moment().startOf("day").add(j, "days").add(timeStamps[k], "hours").format()
         });
 
         // will display the time of day (Morning, Afternoon, Night)
