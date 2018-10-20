@@ -150,6 +150,7 @@ function getNameAndZip() {
         //This will run when there is both a user.name and a user.zip
         $(".input-name-zip").hide();
         getUserList();
+        addNewUserToCalendar();
     }
 };
 
