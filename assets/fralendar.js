@@ -137,7 +137,7 @@ function getUserCalendar() {
     });
 };
 
-//This sets a time of null of the first day the user logs in so they then can write to the calendar in the future.
+//This sets a time to the first time available of the first day the user logs in so they then can write to the calendar in the future.
 function addNewUserToCalendar() {
     var dummyTime = moment().startOf("day").add(0, "days").add(timeStamps[0], "hours").format()
     userFreeTime = { [dummyTime]: "0" }
@@ -152,9 +152,12 @@ firebase.database().ref("/freetime/").on("value", function (snap) {
 $(".calendar-btn").on("click", function () {
     //Pulls the value and the ID from each button to be used in firebase
     var buttonTime = $(this).val();
+    //This adds the time as the key in firebase
     var attribute = $(this).attr(`data-unix`);
     freetime[user.ID] = {};
     userFreeTime[attribute] = buttonTime;
     freetime[user.ID] = userFreeTime;
     firebase.database().ref(`/freetime/`).set(freetime);
 });
+
+//Reads the freetime object and checks if there are any times which line up
