@@ -1,10 +1,13 @@
 latitude = 41.881832;
 longitude = -87.623177;
 weatherTime = 1540148070;
+
+// this allows the API to run past CORS permissions
+
 //Dark Sky Api Format
-//Needs to be lat , long , Unix time (this includes both date and time in its value)
+//Needs to be lat , long , Unix time (this includes both date and time in its value) heroku allows us to bypass CORS permissions
 var apiKey = "1408b38a9701141fa75c8f041fca27e8",
-  url = "https://api.darksky.net/forecast/",
+  url = "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/",
   lati = latitude,
   longi = longitude,
   unixTime = weatherTime,

@@ -1,8 +1,9 @@
 zip = 60614;
 EventfulDateString = "2018102000-2018102000";
 
-//Api url - includes zip and date. date is set as a range to then get time of day we need to leverage the data in the pull.
-(eventfulUrl = "http://api.eventful.com/rest/events/search?"),
+//Api url - includes zip and date. date is set as a range to then get time of day we need to leverage the data in the pull.heroku allows us to bypass CORS permission
+(eventfulUrl =
+  "https://cors-anywhere.herokuapp.com/http://api.eventful.com/rest/events/search?"),
   (eventfulZip = zip),
   (eventfulKey = "app_key=SbhFzbfzfXwhtkTg"),
   (eventfulDate = EventfulDateString),
