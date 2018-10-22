@@ -31,7 +31,7 @@ $(document).ready(function() {
       //Sign in
       const promise = auth.signInWithEmailAndPassword(email, pass);
 
-      //shows
+      //shows calendar
       $(".calendarHTML").show();
       //If error, log it to the console
       promise.catch(e => console.log(e.message));
@@ -60,6 +60,9 @@ $(document).ready(function() {
       //TODO: If error make it modolo instead of console logging it
       newUser = true;
       clearInputForms();
+      //show calendar element
+      $(".calendarHTML").show();
+
       //If the validation wasn't correct
     } else {
       showLoginModal();
@@ -70,6 +73,7 @@ $(document).ready(function() {
   $(".logout").on("click", e => {
     //Calls the signout function for firebase
     firebase.auth().signOut();
+    $(".calendarHTML").hide();
   });
 
   $(".submit-name-zip").on("click", e => {
