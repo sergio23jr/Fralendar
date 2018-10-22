@@ -22,4 +22,16 @@ $.ajax({
   console.log(dark_Sky_api_call);
   //log the result and specific paramters
   console.log(response);
+  console.log(response.currently.summary);
+  console.log(response.currently.apparentTemperature);
+  console.log(response.currently.precipProbability);
+
+  //write temp to table
+  $("#Temp").html(response.currently.temperature);
+  $("#Status").html(response.currently.summary);
+  $("#Precipprob").html(response.currently.precipProbability);
+
+  //Make Precipitation Probability a percentage
+  // var precippercent = precipProbability * 100;
+  // console.log(precippercent);
 });

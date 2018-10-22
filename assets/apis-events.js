@@ -26,4 +26,10 @@ $.ajax({
   console.log(eventfulApiCall);
   //log the result and specific paramters
   console.log(response);
+  console.log(response.#document.search);
+  console.log(search);
+  console.log(response.events.id);
 });
+
+//write to events section
+$(".event-data").html(response.search.events);

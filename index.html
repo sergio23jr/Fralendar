@@ -53,7 +53,7 @@
             <div id="thursday" class="week text-center col-md-1">Thursday</div>
             <div id="friday" class="week text-center col-md-1">Friday</div>
             <div id="saturday" class="week text-center col-md-1">Saturday</div>
-            <div class="week col-md-2">blank</div>
+            <div class="week col-md-2">Weather</div>
         </div>
         <div class="row">
             <div class="day col-md-2"></div>
@@ -92,22 +92,44 @@
                 <button class="btn btn-block" id="saturdayAfternoon" value="0">Afternoon</button>
                 <button class="btn btn-block" id="saturdayNight" value="0">Night</button>
             </div>
-            <div class="day col-md-2"></div>
-        </div>
+            <div class="day col-md-2">
+                <div class="row">
+                    <div class="weather col-md-12" id="Status">Status</div>
+                    <div class="weather col-md-12" id="Temp">Temp</div>
+                    <div class="weather col-md-12" id="Precipprob">Precip Prob</div>
+                </div>
+            </div>
+
+
+            <div class="container-fuid">
+                <div class="jumbotron">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="event-data">
+                                <h1 class="events">events</h1>
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
 
 
 
 
-    </div>
+                </div>
 
 
-    <script src='https://code.jquery.com/jquery-3.3.1.min.js' integrity='sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8='
-        crossorigin='anonymous'></script>
-    <script src="https://www.gstatic.com/firebasejs/5.5.4/firebase.js"></script>
-    <script src="assets/login.js"></script>
-    <script src="assets/fralendar.js"></script>
-    <script src="assets/apis-events.js"></script>
-    <script src="assets/apis-weather.js"></script>
+                <script src='https://code.jquery.com/jquery-3.3.1.min.js' integrity='sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8='
+                    crossorigin='anonymous'></script>
+                <script src="https://www.gstatic.com/firebasejs/5.5.4/firebase.js"></script>
+                <script src="assets/login.js"></script>
+                <script src="assets/fralendar.js"></script>
+                <!-- <script src="assets/apis-events.js"></script> -->
+                <script src="assets/api-event-tm.js"></script>
+                <script src="assets/apis-weather.js"></script>
 
 
 
