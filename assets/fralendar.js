@@ -4,6 +4,7 @@ console.log(moment().format("X"));
 //Object which holds everyone's freetime
 var freetime = {};
 var userFreeTime = {};
+var userFreeTimeArray = [];
 
 // Array for getting current day and next 6 days
 var daysOfWeek = [
@@ -30,9 +31,6 @@ var timeStamps = [6, 12, 18]
 
 // array for out button value names
 var timeOfDay = ["Morning", "Afternoon", "Night"]
-
-
-
 
 // creating a div to append all days to (Sunday-Saturday)
 var firstRowDiv = $("<div>")
@@ -132,8 +130,8 @@ $(".calendar-btn").on("click", function () {
 function getUserCalendar() {
     firebase.database().ref(`/freetime/${user.ID}`).once("value").then(function (snap) {
         userFreeTime = {};
-        console.log(snap.val())
         userFreeTime = snap.val();
+        getUserFreeTimeArray();
     });
 };
 
@@ -161,3 +159,10 @@ $(".calendar-btn").on("click", function () {
 });
 
 //Reads the freetime object and checks if there are any times which line up
+function getUserFreeTimeArray() {
+    for (var key in userFreeTime) {
+        if (userFreeTime[key] == 1) {
+            userFreeTimeArray.push(key);
+        };
+    };
+};

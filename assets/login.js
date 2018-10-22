@@ -49,6 +49,7 @@ $(".register").on("click", e => {
         //TODO: If error make it modolo instead of console logging it
         newUser = true;
         clearInputForms();
+        addNewUserToCalendar();
         //If the validation wasn't correct
     } else {
         showLoginModal();
@@ -150,7 +151,6 @@ function getNameAndZip() {
         //This will run when there is both a user.name and a user.zip
         $(".input-name-zip").hide();
         getUserList();
-        addNewUserToCalendar();
     }
 };
 
