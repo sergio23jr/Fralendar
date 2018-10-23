@@ -26,119 +26,159 @@ apiEvents = [];
 $.ajax({
   type: "GET",
   url: tmApiCall
-}).then(function (response) {
+}).then(function(response) {
   //log the queryURL
   console.log(response);
 
   apiEvents = response._embedded.events;
 
-  var eventPlace = response._embedded.events
+  var link = response._links.first.href;
+  console.log(link);
 
-  //Loop populates document with events 
-  for (var i = 0; i < apiEvents.length; i++) {
-
+  //Loop populates document with events
+  for (let i = 0; i < apiEvents.length; i++) {
     // variable holds the time event takes place (24hr format HH:MM:SS)
-    var time = apiEvents[i].dates.start.localTime
+    var time = apiEvents[i].dates.start.localTime;
+    console.log(apiEvents[i].dates.start);
 
     //variable holds the date event takes place (YYYY-MM-DD)
-    var date = apiEvents[i].dates.start.localDate
+    var date = apiEvents[i].dates.start.localDate;
 
     // creates div to append all info of event along with needed attributes
     var parentEvent = $("<div>");
-    parentEvent.attr({ "id": "event #" + (i + 1) })
-    parentEvent.addClass(["eventDiv", "row"])
+    parentEvent.attr({ id: "event #" + (i + 1) });
+    parentEvent.addClass(["eventDiv", "row"]);
 
     //creates an img element along with needed attributes
-    var imgEvent = $("<img>")
+    var imgEvent = $("<img>");
     imgEvent.attr({
-      "id": "eventImg",
-      "src": apiEvents[i].images[0].url,
-      "class": "col-md-4"
-    })
+      id: "eventImg",
+      src: apiEvents[i].images[0].url,
+      class: "col-md-4"
+    });
 
     //creating a div for the remaining 8 columns needed per bootstrap
-    var divColumn = $("<div>")
-    divColumn.addClass(["col-md-8", "info" + ([i] + 1)])
+    var divColumn = $("<div>");
+    divColumn.addClass(["col-md-8", "info"]);
 
-    //creaing a new row to insert Name of event with needed attributes
-    var divRowName = $("<div>")
-    divRowName.addClass("row")
-    divColumn.append(divRowName)
+    //creaing a new row to insert Name of event
+    var divRowName = $("<div>");
+    divRowName.addClass(["row", "info"]);
+    divColumn.append(divRowName);
 
-    // create div to append event name to from array
+    //creating a new row to insert time and date
+    var divRowTime = $("<div>");
+    divRowTime.addClass(["row", "info"]);
+    divColumn.append(divRowTime);
+
+    //adding picture plus a new div to insert all other info
+    parentEvent.append([imgEvent, divColumn]);
+
+    // create span to append event name to from array
     var namespan = $("<div>");
-    namespan.addClass("col-md-12")
+    namespan.addClass("col-md-12");
     namespan.text("Event: " + apiEvents[i].name);
-
-    // append name to row 
+    // append name to row
     $(divRowName).append(namespan);
 
-    //creating a new row to insert time and date with needed attributes
-    var divRowTime = $("<div>")
-    divRowTime.addClass("row")
-    divColumn.append(divRowTime)
-
-    // creating div for date and time 
+    // span for date and time
     var timespan = $("<div>");
-    timespan.addClass("col-md-12")
+    timespan.addClass("col-md-12");
 
-    //set the text to date and time of event
+    //set the text to date and time of event (needs work still to modify data)
+    // timespan.text("When: " + apiEvents[i].dates.start.localTime + " " + apiEvents[i].dates.start.localDate);
     timespan.text("When: " + getTimeAndDate(time, date));
 
     //append to row
     $(divRowTime).append(timespan);
 
-    // creating a new row to insert location with needed attributes
-    var divRowPlace = $("<div>")
-    divRowPlace.addClass("row")
-    divColumn.append(divRowPlace)
-
-    // create div that will hold location of event with need attributes
-    var placeDiv = $("<div>")
-    placeDiv.addClass("col-md-12")
-    placeDiv.text("Location: " + eventPlace[i]._embedded.venues[0].name + " " + eventPlace[i]._embedded.venues[0].address.line1)
-    $(divRowPlace).append(placeDiv)
-
-    //adding picture plus a new div to insert all other info
-    parentEvent.append([imgEvent, divColumn]);
-
     //append event to document
     $(".Events").append(parentEvent);
   }
 
-  //Function inputs the date and time and reformats it 
   function getTimeAndDate(eventTime, eventDate) {
     // variable will hold the year the event takes place
-    var eventYear = eventDate.slice(0, 4)
+    var eventYear = eventDate.slice(0, 4);
 
     // variable will hold the month the event takes place
-    var eventMonth = eventDate.slice(5, 7)
+    var eventMonth = eventDate.slice(5, 7);
 
     // variable will hold the day the event takes place
-    var eventDay = eventDate.slice(8, 10)
+    var eventDay = eventDate.slice(8, 10);
 
     //New date with US format
-    eventDate = eventMonth + "/" + eventDay + "/" + eventYear
+    eventDate = eventMonth + "/" + eventDay + "/" + eventYear;
 
     // this will get our hour the event takes place
-    var sliceNum = eventTime.slice(0, 2)
+    var sliceNum = eventTime.slice(0, 2);
 
     //variable to represent Am or Pm
     var am_pm = "";
 
     if (+eventTime.slice(0, 2) < 12) {
-      am_pm = "am"
+      am_pm = "am";
     } else {
       // reassign variable to 12hr format for hour
-      sliceNum = (+eventTime.slice(0, 2) - 12)
-      am_pm = "pm"
+      sliceNum = +eventTime.slice(0, 2) - 12;
+      am_pm = "pm";
     }
 
     // get the correct time format HH:MM
-    var correctTimeFormat = sliceNum + eventTime.slice(2, 5)
+    var correctTimeFormat = sliceNum + eventTime.slice(2, 5);
 
     //Variable for correct date format MM/DD/YYYY at HH:MM
-    var correctDateFormat = eventDate + " at " + correctTimeFormat + am_pm
-    return correctDateFormat
+    var correctDateFormat = eventDate + " at " + correctTimeFormat + am_pm;
+    return correctDateFormat;
   }
+  //Set Lat and Long for venue 1 as variables for weather API calls
+  var latitude =
+    response._embedded.events[2]._embedded.venues[0].location.latitude;
+  console.log(latitude);
+  var longitude =
+    response._embedded.events[2]._embedded.venues[0].location.longitude;
+  console.log(longitude);
+
+  //get date and time of venue 1 and convert to unix for weather API call
+  var weatherLocal = apiEvents[2].dates.start.localTime;
+  console.log(weatherLocal);
+  var weatherDate = apiEvents[2].dates.start.localDate;
+  console.log(weatherDate);
+
+  var weatherCombined = weatherDate + " " + weatherLocal;
+
+  console.log(weatherCombined);
+
+  var weatherTime = weatherCombined;
+  weatherTime = weatherCombined
+    .split(" - ")
+    .map(function(date) {
+      return Date.parse(date + "-0500") / 1000;
+    })
+    .join(" - ");
+  console.log(weatherTime);
+
+  //Dark Sky Api Format
+  //Needs to be lat , long , Unix time (this includes both date and time in its value)
+  var apiKey = "1408b38a9701141fa75c8f041fca27e8",
+    url =
+      "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/",
+    lati = latitude,
+    longi = longitude,
+    unixTime = weatherTime,
+    dark_Sky_api_call =
+      url + apiKey + "/" + lati + "," + longi + "," + unixTime;
+
+  //Run the Weather Api
+
+  $.ajax({
+    type: "GET",
+    url: dark_Sky_api_call
+  }).then(function(response) {
+    //log the queryURL
+    console.log(dark_Sky_api_call);
+    //log the result and specific paramters
+    console.log(response.currently.summary);
+    console.log(response.currently.temperature);
+    console.log(response.currently.precipProbability);
+  });
 });
