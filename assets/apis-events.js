@@ -35,7 +35,7 @@ $.ajax({
   var eventPlace = response._embedded.events
 
   //Loop populates document with events 
-  for (let i = 0; i < apiEvents.length; i++) {
+  for (var i = 0; i < apiEvents.length; i++) {
 
     // variable holds the time event takes place (24hr format HH:MM:SS)
     var time = apiEvents[i].dates.start.localTime
