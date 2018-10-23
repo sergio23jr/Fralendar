@@ -43,3 +43,15 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+#eventImg {
+    height: 200px;
+    width: 200px;
+    border: 2px black solid;
+    padding: 0;
+}
+
+.eventDiv{
+    border: 2px black solid;
+    margin: 5px;
+}
