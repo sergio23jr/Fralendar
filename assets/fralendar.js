@@ -4,6 +4,7 @@ console.log(moment().format("X"));
 //Object which holds everyone's freetime
 var freetime = {};
 var userFreeTime = {};
+var userFreeTimeArray = [];
 
 // Array for getting current day and next 6 days
 var daysOfWeek = [
@@ -30,9 +31,6 @@ var timeStamps = [6, 12, 18]
 
 // array for out button value names
 var timeOfDay = ["Morning", "Afternoon", "Night"]
-
-
-
 
 // creating a div to append all days to (Sunday-Saturday)
 var firstRowDiv = $("<div>")
@@ -132,12 +130,12 @@ $(".calendar-btn").on("click", function () {
 function getUserCalendar() {
     firebase.database().ref(`/freetime/${user.ID}`).once("value").then(function (snap) {
         userFreeTime = {};
-        console.log(snap.val())
         userFreeTime = snap.val();
+        getUserFreeTimeArray();
     });
 };
 
-//This sets a time of null of the first day the user logs in so they then can write to the calendar in the future.
+//This sets a time to the first time available of the first day the user logs in so they then can write to the calendar in the future.
 function addNewUserToCalendar() {
     var dummyTime = moment().startOf("day").add(0, "days").add(timeStamps[0], "hours").format()
     userFreeTime = { [dummyTime]: "0" }
@@ -152,9 +150,19 @@ firebase.database().ref("/freetime/").on("value", function (snap) {
 $(".calendar-btn").on("click", function () {
     //Pulls the value and the ID from each button to be used in firebase
     var buttonTime = $(this).val();
+    //This adds the time as the key in firebase
     var attribute = $(this).attr(`data-unix`);
     freetime[user.ID] = {};
     userFreeTime[attribute] = buttonTime;
     freetime[user.ID] = userFreeTime;
     firebase.database().ref(`/freetime/`).set(freetime);
 });
+
+//Reads the freetime object and checks if there are any times which line up
+function getUserFreeTimeArray() {
+    for (var key in userFreeTime) {
+        if (userFreeTime[key] == 1) {
+            userFreeTimeArray.push(key);
+        };
+    };
+};

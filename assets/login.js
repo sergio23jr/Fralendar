@@ -49,19 +49,16 @@ $(document).ready(function() {
     const pass = $(".password").val();
     //If statement to validate user input
     if (email.includes("@") && email.includes(".") && pass.length > 5) {
-      //Sign in
-      const promise = firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, pass);
-      //If error, log it to the console
-      promise.catch(e => console.log(e.message));
-      //TODO: If error make it modolo instead of console logging it
-      newUser = true;
-      clearInputForms();
 
-      //show calendar element
-      $(".calendarHTML").show();
-      //If the validation wasn't correct
+        //Sign in
+        const promise = firebase.auth().createUserWithEmailAndPassword(email, pass);
+        //If error, log it to the console
+        promise.catch(e => console.log(e.message));
+        //TODO: If error make it modolo instead of console logging it
+        newUser = true;
+        clearInputForms();
+        addNewUserToCalendar();
+        //If the validation wasn't correct
     } else {
       showLoginModal();
       clearInputForms();
