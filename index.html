@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Fralendar - Connecting you with friends</title>
@@ -19,13 +19,46 @@
 
 <body>
 
-    <div class="container-fuid">
+    <div class="jumbotron" style="background-color: 
+    #ffd400; color: 
+     #ca2d2a;">
+        <h1 class="display-3">Welcome to Fralendar</h1>
+        <p class="lead">Fralendar connects you and your squad by matching your free time filling it with great local
+            events. No more endless group texts.</p>
+        <hr class="my-4">
+        <p>Sign-in below, and let the good times roll</p>
+        <p class="lead">
+            <!-- <a class="btn btn-secondary" href="#!" role="button">Learn more</a> -->
+            <div class="login-form">
+                <!-- <h1 class="display-3"> Fralendar Login</h1> -->
+                <input class="email" placeholder="Email">
+                <input class="password" type="password" placeholder="Password">
+                <button class="signin">Sign In</button>
+                <button class="register">Register</button>
+            </div>
+            <div class="login-success">
+                <div>
+                    Login Successful
+                    Name: <span class="name-display"></span>
+                    Zip Code: <span class="zip-display"></span>
+                    <button class="logout">Logout</button>
+                </div>
+            </div>
+            <div class="input-name-zip">
+                Please input your name and zip code:
+                <input class="name-input" placeholder="Name">
+                <input class="zip-input" placeholder="Zip">
+                <button class="submit-name-zip">Submit Name & Zip</button>
+            </div>
+        </p>
+        <!-- </div>
+    <div class="container-fluid">
         <div class="jumbotron">
 
             <div class="row">
-                <div class="col-md-12">
-                    <div class="login-form">
-                        <h1 class="login-title">Login</h1>
+                <div class="col-md-12"> -->
+        <!-- <div class="login-form">
+                        <h1 class="display-3"> Fralendar Login</h1>
                         <input class="email" placeholder="Email">
                         <input class="password" type="password" placeholder="Password">
                         <button class="signin">Sign In</button>
@@ -44,29 +77,29 @@
                         <input class="name-input" placeholder="Name">
                         <input class="zip-input" placeholder="Zip">
                         <button class="submit-name-zip">Submit Name & Zip</button>
-                    </div>
+                    </div> -->
+    </div>
+    </div>
+    </div>
+
+    <div class="card mb-3 text-center bg-success text-white" id="calendar-card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="calendarHTML"></div>
+
                 </div>
             </div>
+
         </div>
+    </div>
 
-        <div class="card mb-3 text-center bg-success text-white">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-7">
+    <div class="col-md-5">
+        <div class="eventDisplay">
 
-                        <div class="calendarHTML"></div>
-
-                    </div>
-                </div>
-
-            </div>
         </div>
-
-        <div class="col-md-5">
-            <div class="eventDisplay">
-
-            </div>
-        </div>
+    </div>
     </div>
 
     <div class="jumbotron Events">Events:</div>
