@@ -26,7 +26,7 @@ apiEvents = [];
 $.ajax({
   type: "GET",
   url: tmApiCall
-}).then(function(response) {
+}).then(function (response) {
   //log the queryURL
   console.log(response);
 
@@ -93,7 +93,7 @@ $.ajax({
     $(divRowTime).append(timespan);
 
     //append event to document
-    $(".Events").append(parentEvent);
+    $(".eventDisplay").append(parentEvent);
   }
 
   function getTimeAndDate(eventTime, eventDate) {
@@ -151,7 +151,7 @@ $.ajax({
   var weatherTime = weatherCombined;
   weatherTime = weatherCombined
     .split(" - ")
-    .map(function(date) {
+    .map(function (date) {
       return Date.parse(date + "-0500") / 1000;
     })
     .join(" - ");
@@ -173,7 +173,7 @@ $.ajax({
   $.ajax({
     type: "GET",
     url: dark_Sky_api_call
-  }).then(function(response) {
+  }).then(function (response) {
     //log the queryURL
     console.log(dark_Sky_api_call);
     //log the result and specific paramters
