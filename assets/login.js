@@ -143,6 +143,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
     $("#fralendar-welcome").hide();
     $("#fralendar-intro").hide();
     $(".Calendar").show();
+    $(".eventbtn").show();
     //Displays the username on screen
     displayUserName();
   } else {
@@ -159,6 +160,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
     $("#fralendar-welcome").show();
     $("#fralendar-intro").show();
     $(".Calendar").hide();
+    $(".eventbtn").hide();
     //Clears the user object to show that they logged out
     user = {};
     //This updates the text fields so if the user logs out the registers again it shows null
