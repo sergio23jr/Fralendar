@@ -19,10 +19,10 @@
 
 <body>
 
-    <div class="jumbotron" style="background-color: 
+    <div class="jumbotron" id="fralendar-welcome" style="background-color: 
     #ffd400; color: 
      #ca2d2a;">
-        <div class="container" id="fralendar-welcome">
+        <div class="container">
             <h1 class="display-3">Welcome to Fralendar</h1>
             <p class="lead">Fralendar connects you and your squad by matching your free time
                 filling
@@ -44,29 +44,32 @@
                     <button class="register">Register</button>
                 </div>
         </div>
+    </div>
 
-        <div class="login-success">
-            <div>
-                Login Successful
-                Name: <span class="name-display"></span>
-                Zip Code: <span class="zip-display"></span>
-                <button class="logout">Logout</button>
-            </div>
-        </div>
-        <div class="input-name-zip">
-            Please input your name and zip code:
-            <input class="name-input" placeholder="Name">
-            <input class="zip-input" placeholder="Zip">
-            <button class="submit-name-zip">Submit Name & Zip</button>
-        </div>
-        </p>
-        <!-- </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary login-success">
+        <!-- <div class="login-success"> -->
+        <!-- <div> -->
+        <h3> Welcome,
+            <span class="name-display"></span>!</h3>
+        Current Location: <span class="zip-display"></span>
+        <button class="logout">Logout</button>
+        <!-- </div> -->
+        <!-- </div> -->
+    </nav>
+    <div class="input-name-zip">
+        Please input your name and zip code:
+        <input class="name-input" placeholder="Name">
+        <input class="zip-input" placeholder="Zip">
+        <button class="submit-name-zip">Submit Name & Zip</button>
+    </div>
+    </p>
+    <!-- </div>
     <div class="container-fluid">
         <div class="jumbotron">
 
             <div class="row">
                 <div class="col-md-12"> -->
-        <!-- <div class="login-form">
+    <!-- <div class="login-form">
                         <h1 class="display-3"> Fralendar Login</h1>
                         <input class="email" placeholder="Email">
                         <input class="password" type="password" placeholder="Password">
@@ -87,7 +90,6 @@
                         <input class="zip-input" placeholder="Zip">
                         <button class="submit-name-zip">Submit Name & Zip</button>
                     </div> -->
-    </div>
     </div>
     </div>
 
