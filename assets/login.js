@@ -155,7 +155,6 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
     $(".eventDisplay").hide();
     $(".Events").hide();
     $("#calendar-card").hide();
-
     $("#fralendar-welcome").show();
     $("#fralendar-intro").show();
     //Clears the user object to show that they logged out
