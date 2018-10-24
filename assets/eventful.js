@@ -22,7 +22,7 @@ EventfulDateString = "2018102500-2018103100";
 $.ajax({
   type: "GET",
   url: eventfulApiCall
-}).then(function(response) {
+}).then(function (response) {
   //log the queryURL
   console.log(eventfulApiCall);
   //log the result and specific paramters

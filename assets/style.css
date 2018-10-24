@@ -1,5 +1,5 @@
 .week{
-    background: red;
+    background: darkblue;
     border: 1px black solid;
     margin: 0;
 }
@@ -8,8 +8,8 @@
     margin: 0;
     padding: 0;
 }
-.btn{
-    margin: 0 0 0 0;
+.calendar-btn{
+    margin: 5px 0;
 }
 
 .modal{
