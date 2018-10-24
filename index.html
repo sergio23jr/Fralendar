@@ -22,34 +22,43 @@
     <div class="jumbotron" style="background-color: 
     #ffd400; color: 
      #ca2d2a;">
-        <h1 class="display-3">Welcome to Fralendar</h1>
-        <p class="lead">Fralendar connects you and your squad by matching your free time filling it with great local
-            events. No more endless group texts.</p>
-        <hr class="my-4">
-        <p>Sign-in below, and let the good times roll</p>
-        <p class="lead">
-            <!-- <a class="btn btn-secondary" href="#!" role="button">Learn more</a> -->
-            <div class="login-form">
-                <!-- <h1 class="display-3"> Fralendar Login</h1> -->
-                <input class="email" placeholder="Email">
-                <input class="password" type="password" placeholder="Password">
-                <button class="signin">Sign In</button>
-                <button class="register">Register</button>
-            </div>
-            <div class="login-success">
-                <div>
-                    Login Successful
-                    Name: <span class="name-display"></span>
-                    Zip Code: <span class="zip-display"></span>
-                    <button class="logout">Logout</button>
+        <div class="container" id="fralendar-welcome">
+            <h1 class="display-3">Welcome to Fralendar</h1>
+            <p class="lead">Fralendar connects you and your squad by matching your free time
+                filling
+                it with great local
+                events. No more endless group texts.</p>
+            <hr class="my-4">
+            <p>Sign-in below, and let the good times roll</p>
+        </div>
+        <div class="container">
+            <p class="lead">
+                <!-- <a class="btn btn-secondary" href="#!" role="button">Learn more</a> -->
+                <div class="login-form">
+                    <!-- <h1 class="display-3"> Fralendar Login</h1> -->
+                    <input class="email" placeholder="Email">
+                    <input class="password" type="password" placeholder="Password">
+                    <br>
+                    <br>
+                    <button class="signin">Sign In</button>
+                    <button class="register">Register</button>
                 </div>
+        </div>
+
+        <div class="login-success">
+            <div>
+                Login Successful
+                Name: <span class="name-display"></span>
+                Zip Code: <span class="zip-display"></span>
+                <button class="logout">Logout</button>
             </div>
-            <div class="input-name-zip">
-                Please input your name and zip code:
-                <input class="name-input" placeholder="Name">
-                <input class="zip-input" placeholder="Zip">
-                <button class="submit-name-zip">Submit Name & Zip</button>
-            </div>
+        </div>
+        <div class="input-name-zip">
+            Please input your name and zip code:
+            <input class="name-input" placeholder="Name">
+            <input class="zip-input" placeholder="Zip">
+            <button class="submit-name-zip">Submit Name & Zip</button>
+        </div>
         </p>
         <!-- </div>
     <div class="container-fluid">
@@ -106,14 +115,24 @@
 
     </div>
 
-    <div class="login-modal modal">
+    <div class="alert alert-secondary login-modal modal" role="alert" style="background-color: 
+    #ffd400; color: 
+     #ca2d2a;">
+        <h4 class="alert-heading">Oh no!</h4>
+        <p>Please use the email format using both " @ " and " . ". Also, please ensure your password is at
+            least 6
+            letters long.</p>
+        <button class="btn modal-close login-close">Close</button>
+        <!-- <a href="#!" class="alert-link">It contains a link and heading.</a> -->
+    </div>
+    <!-- <div class="login-modal modal">
         <div class="modal-content">
             <p>Please use the email format using both " @ " and " . ". Also, please ensure your password is at
                 least 6
                 letters long.</p>
             <button class="btn modal-close login-close">Close</button>
         </div>
-    </div>
+    </div> -->
 
     <div class="name-zip-modal modal">
         <div class="modal-content">

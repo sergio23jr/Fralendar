@@ -139,6 +139,8 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
     //shows calendar
     $(".calendarHTML").show();
     $("#calendar-card").show();
+    $("#fralendar-welcome").hide();
+    $("#fralendar-intro").hide();
 
     //Displays the username on screen
     displayUserName();
@@ -153,6 +155,9 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
     $(".eventDisplay").hide();
     $(".Events").hide();
     $("#calendar-card").hide();
+
+    $("#fralendar-welcome").show();
+    $("#fralendar-intro").show();
     //Clears the user object to show that they logged out
     user = {};
     //This updates the text fields so if the user logs out the registers again it shows null
