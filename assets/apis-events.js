@@ -2,6 +2,7 @@ zip = 60614;
 tmDateString = "2018-10-25T10:00:00Z";
 tmDateString2 = "2018-10-31T23:59:59Z";
 apiEvents = [];
+apiVenueLocation = [];
 // Api url - includes zip and date. date is set as a range to then get time of day we need to leverage the data in the pull.heroku allows us to bypass CORS permission
 (tmUrl =
   "https://cors-anywhere.herokuapp.com/https://app.ticketmaster.com/discovery/v2/events.json?"),
@@ -39,10 +40,12 @@ $.ajax({
   for (let i = 0; i < apiEvents.length; i++) {
     // variable holds the time event takes place (24hr format HH:MM:SS)
     var time = apiEvents[i].dates.start.localTime;
-    console.log(apiEvents[i].dates.start);
 
     //variable holds the date event takes place (YYYY-MM-DD)
     var date = apiEvents[i].dates.start.localDate;
+
+    //variable holds the book now link
+    var bookUrl = apiEvents[i].url;
 
     // creates div to append all info of event along with needed attributes
     var parentEvent = $("<div>");
@@ -96,6 +99,31 @@ $.ajax({
     $(".Events").append(parentEvent);
   }
 
+  // // Going to declare the venue address
+  // apiVenueLocation = response._embedded.events[i]._embedded.venues;
+  // console.log(apiVenueLocation);
+  // //Loop populates document with event Venue
+  // for (let z = 0; z < apiVenueLocation.length; z++) {
+  //   // variable holds specific demographic info)
+  //   var location = apiVenueLocation[z];
+  //   var venueStreetAddress = location.address.line1;
+  //   var venueCity = location.city.name;
+  //   var venueState = location.state.stateCode;
+  //   var venueZip = location.postalCode;
+  //   // this is the full address formatted.
+  //   var venueFullAddress =
+  //     venueStreetAddress +
+  //     ",  " +
+  //     venueCity +
+  //     "," +
+  //     venueState +
+  //     " " +
+  //     venueZip;
+
+  //   console.log(venueFullAddress);
+
+  // }
+
   function getTimeAndDate(eventTime, eventDate) {
     // variable will hold the year the event takes place
     var eventYear = eventDate.slice(0, 4);
@@ -130,18 +158,19 @@ $.ajax({
     var correctDateFormat = eventDate + " at " + correctTimeFormat + am_pm;
     return correctDateFormat;
   }
+
   //Set Lat and Long for venue 1 as variables for weather API calls
   var latitude =
-    response._embedded.events[2]._embedded.venues[0].location.latitude;
+    response._embedded.events[15]._embedded.venues[0].location.latitude;
   console.log(latitude);
   var longitude =
-    response._embedded.events[2]._embedded.venues[0].location.longitude;
+    response._embedded.events[15]._embedded.venues[0].location.longitude;
   console.log(longitude);
 
   //get date and time of venue 1 and convert to unix for weather API call
-  var weatherLocal = apiEvents[2].dates.start.localTime;
+  var weatherLocal = apiEvents[15].dates.start.localTime;
   console.log(weatherLocal);
-  var weatherDate = apiEvents[2].dates.start.localDate;
+  var weatherDate = apiEvents[15].dates.start.localDate;
   console.log(weatherDate);
 
   var weatherCombined = weatherDate + " " + weatherLocal;
@@ -177,8 +206,12 @@ $.ajax({
     //log the queryURL
     console.log(dark_Sky_api_call);
     //log the result and specific paramters
-    console.log(response.currently.summary);
-    console.log(response.currently.temperature);
-    console.log(response.currently.precipProbability);
+    console.log(response);
+    var temp = response.currently.temperature + "°F";
+    console.log(temp);
+    var weatherSummary = response.currently.summary;
+    console.log(weatherSummary);
+    var precipProbability = response.currently.precipProbability * 100 + "%";
+    console.log(precipProbability);
   });
 });
