@@ -81,8 +81,8 @@ $(".submit-name-zip").on("click", e => {
       zipNumCount++;
     }
   }
-  //Checks if the value is 6. If it is not it will not continue to firebase and it will stay at the current screen.
-  //It needs to be exactly 6 numbers as that is what we are using to pull the API from
+  //Checks if the value is 5 numbers long. If it is not it will not continue to firebase and it will stay at the current screen.
+  //It needs to be exactly 5 numbers as that is what we are using to pull the API from
   if (zipNumCount === 5 && zipCheck.length === 5) {
     //Maybe not the best pratice having it set the whole user log again, but it's what I can think of now
     $.when(
@@ -122,21 +122,22 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
     //Checks if the user has a name or zip in firebase
     //If they do not then likely new users and writes the data to firebase and asks for name and zip
     //Needs undefined if they are a new user
-    if (newUser === true) {
-      //Needs to pull write the user data and return the values before moving to the name & zip
-      //The Name and zip then go on to generate the user list. If the user data is not written before then it will cause the user list to wipe
-      //This is because the object is while we are waiting for firebase to send back data for it to be written locally
-      writeUserData(firebaseUser);
-      getNameAndZip();
-    }
-    //If user account already has a name then populate the User List
-    if (user.name !== undefined) {
-      getUserList();
-    }
+  }
+  if (newUser === true) {
+    //Needs to pull write the user data and return the values before moving to the name & zip
+    //The Name and zip then go on to generate the user list. If the user data is not written before then it will cause the user list to wipe
+    //This is because the object is while we are waiting for firebase to send back data for it to be written locally
+    writeUserData(firebaseUser);
+    getNameAndZip();
+  }
+  //If user account already has a name then populate the User List
+  if (user.name !== undefined) {
+    getUserList();
+
     //Shows the div of the login success box
     $(".login-success").show();
     $(".login-form").hide();
-    $(".Events").show();
+    $(".eventDisplay").show();
     //shows calendar
     $(".calendarHTML").show();
     $("#calendar-card").show();
@@ -155,7 +156,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
     //hide calendar on logout
     $(".calendarHTML").hide();
     $(".eventDisplay").hide();
-    $(".Events").hide();
+    $(".eventDisplay").hide();
     $("#calendar-card").hide();
     $("#fralendar-welcome").show();
     $("#fralendar-intro").show();
