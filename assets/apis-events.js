@@ -2,9 +2,9 @@ var zip = 60614;
 var tmDateString = "";
 var tmDateString2 = "";
 var apiEvents = [];
+
 // Api url - includes zip and date. date is set as a range to then get time of day we need to leverage the data in the pull.heroku allows us to bypass CORS permission
 var tmApiCall = "https://cors-anywhere.herokuapp.com/https://app.ticketmaster.com/discovery/v2/events.json?apikey=aw1x9XltYOH5uHXUYANmxJszqWA77OZR&postalCode=" + zip + "&" + "startDateTime=" + tmDateString + "&" + "endDateTime=" + tmDateString2;
-
 
 //create an Ajax call
 function getEvents() {
@@ -132,6 +132,7 @@ function getEvents() {
 
     });
   });
+
   function getTimeAndDate(eventTime, eventDate) {
     // variable will hold the year the event takes place
     var eventYear = eventDate.slice(0, 4);
@@ -166,7 +167,6 @@ function getEvents() {
     var correctDateFormat = eventDate + " at " + correctTimeFormat + am_pm;
     return correctDateFormat;
   }
-}
 
 $("body").on("click", ".SimilarFreeTime", function () {
   $(".eventDisplay").empty();
@@ -175,3 +175,60 @@ $("body").on("click", ".SimilarFreeTime", function () {
   tmDateString2 = eventChosen.slice(0, 11) + "23:59:59Z"
   getEvents();
 })
+
+  //Set Lat and Long for venue 1 as variables for weather API calls
+  var latitude =
+    response._embedded.events[15]._embedded.venues[0].location.latitude;
+  console.log(latitude);
+  var longitude =
+    response._embedded.events[15]._embedded.venues[0].location.longitude;
+  console.log(longitude);
+
+  //get date and time of venue 1 and convert to unix for weather API call
+  var weatherLocal = apiEvents[15].dates.start.localTime;
+  console.log(weatherLocal);
+  var weatherDate = apiEvents[15].dates.start.localDate;
+  console.log(weatherDate);
+
+  var weatherCombined = weatherDate + " " + weatherLocal;
+
+  console.log(weatherCombined);
+
+  var weatherTime = weatherCombined;
+  weatherTime = weatherCombined
+    .split(" - ")
+    .map(function (date) {
+      return Date.parse(date + "-0500") / 1000;
+    })
+    .join(" - ");
+  console.log(weatherTime);
+
+  //Dark Sky Api Format
+  //Needs to be lat , long , Unix time (this includes both date and time in its value)
+  var apiKey = "1408b38a9701141fa75c8f041fca27e8",
+    url =
+      "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/",
+    lati = latitude,
+    longi = longitude,
+    unixTime = weatherTime,
+    dark_Sky_api_call =
+      url + apiKey + "/" + lati + "," + longi + "," + unixTime;
+
+  //Run the Weather Api
+
+  $.ajax({
+    type: "GET",
+    url: dark_Sky_api_call
+  }).then(function (response) {
+    //log the queryURL
+    console.log(dark_Sky_api_call);
+    //log the result and specific paramters
+    console.log(response);
+    var temp = response.currently.temperature + "°F";
+    console.log(temp);
+    var weatherSummary = response.currently.summary;
+    console.log(weatherSummary);
+    var precipProbability = response.currently.precipProbability * 100 + "%";
+    console.log(precipProbability);
+  });
+};
