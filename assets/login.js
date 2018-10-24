@@ -82,8 +82,8 @@ $(".submit-name-zip").on("click", e => {
             zipNumCount++;
         }
     }
-    //Checks if the value is 6. If it is not it will not continue to firebase and it will stay at the current screen.
-    //It needs to be exactly 6 numbers as that is what we are using to pull the API from
+    //Checks if the value is 5 numbers long. If it is not it will not continue to firebase and it will stay at the current screen.
+    //It needs to be exactly 5 numbers as that is what we are using to pull the API from
     if (zipNumCount === 5 && zipCheck.length === 5) {
         //Maybe not the best pratice having it set the whole user log again, but it's what I can think of now
         $.when(
