@@ -1,6 +1,3 @@
-// console.log just to help me out figuring out formulas
-console.log(moment().format("X"));
-
 //Object which holds everyone's freetime
 var freetime = {};
 var userFreeTime = {};
@@ -160,9 +157,29 @@ $(".calendar-btn").on("click", function () {
 
 //Reads the freetime object and checks if there are any times which line up
 function getUserFreeTimeArray() {
+    var friendFreeTime = {};
+    var friendFreeTimeArray = [];
+
     for (var key in userFreeTime) {
         if (userFreeTime[key] == 1) {
             userFreeTimeArray.push(key);
+        };
+    };
+    for (var key in freetime) {
+
+        if (key !== user.ID) {
+            friendFreeTime = freetime[key];
+        };
+        for (var j in friendFreeTime) {
+            if (friendFreeTime[j] === "1") {
+                friendFreeTimeArray.push(j);
+            };
+        };
+        console.log(friendFreeTimeArray)
+        for (var i = 0; i < friendFreeTimeArray.length; i++) {
+            if (userFreeTimeArray.includes(friendFreeTimeArray[i])) {
+                console.log("working")
+            };
         };
     };
 };
