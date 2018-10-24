@@ -183,10 +183,8 @@ function getUserFreeTimeArray() {
 
                 // variable will hold the day the event takes place
                 var eventDay = friendFreeTimeArray[i].slice(8, 10);
-
-                var eventHour = friendFreeTimeArray[i].slice(11, 13)
-
-                var eventMin = friendFreeTimeArray[i].slice(14, 16)
+                var eventHour = friendFreeTimeArray[i].slice(11, 13);
+                var eventMin = friendFreeTimeArray[i].slice(14, 16);
 
                 eventBtn.text(eventMonth + "/" + eventDay + " " + eventHour + ":" + eventMin)
                 $(".eventbtn").append(eventBtn)
