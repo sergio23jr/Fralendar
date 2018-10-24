@@ -172,7 +172,24 @@ function getUserFreeTimeArray() {
         // console.log(friendFreeTimeArray)
         for (var i = 0; i < friendFreeTimeArray.length; i++) {
             if (userFreeTimeArray.includes(friendFreeTimeArray[i])) {
-                console.log("working")
+                var eventBtn = $("<button>")
+                eventBtn.addClass("SimilarFreeTime")
+                eventBtn.attr({
+                    value: friendFreeTimeArray[i].slice(0, 16)
+                })
+
+                // variable will hold the month the event takes place
+                var eventMonth = friendFreeTimeArray[i].slice(5, 7);
+
+                // variable will hold the day the event takes place
+                var eventDay = friendFreeTimeArray[i].slice(8, 10);
+
+                var eventHour = friendFreeTimeArray[i].slice(11, 13)
+
+                var eventMin = friendFreeTimeArray[i].slice(14, 16)
+
+                eventBtn.text(eventMonth + "/" + eventDay + " " + eventHour + ":" + eventMin)
+                $(".eventbtn").append(eventBtn)
             };
         };
     };
