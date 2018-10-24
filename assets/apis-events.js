@@ -10,13 +10,10 @@ var tmApiCall = "https://cors-anywhere.herokuapp.com/https://app.ticketmaster.co
 function getEvents() {
   tmApiCall = "https://cors-anywhere.herokuapp.com/https://app.ticketmaster.com/discovery/v2/events.json?apikey=aw1x9XltYOH5uHXUYANmxJszqWA77OZR&postalCode=" + zip + "&" + "startDateTime=" + tmDateString + "&" + "endDateTime=" + tmDateString2;
 
-  console.log(zip, tmDateString, tmDateString2, tmApiCall)
   $.ajax({
     type: "GET",
     url: tmApiCall
   }).then(function (response) {
-    //log the queryURL
-    console.log(response);
 
     apiEvents = response._embedded.events;
 
@@ -52,7 +49,6 @@ function getEvents() {
           return Date.parse(date + "-0500") / 1000;
         })
         .join(" - ");
-      // console.log(weatherTime);
 
       //Dark Sky Api Format
       //Needs to be lat , long , Unix time (this includes both date and time in its value)
@@ -71,16 +67,11 @@ function getEvents() {
         type: "GET",
         url: dark_Sky_api_call
       }).then(function (response) {
-        //log the queryURL
 
         //log the result and specific paramters
-
         var temp = response.currently.temperature + "°F";
-        // console.log(temp);
         var weatherSummary = response.currently.summary;
-        // console.log(weatherSummary);
         var precipProbability = response.currently.precipProbability * 100 + "%";
-        // console.log(precipProbability);
 
         // creates div to append all info of event along with needed attributes
         var parentEvent = $("<div>");
@@ -181,17 +172,6 @@ function getEvents() {
         //append event to document
         $(".eventDisplay").append(parentEvent);
 
-        //Set Lat and Long for venue 1 as variables for weather API calls
-        var latitude = response._embedded.events[15]._embedded.venues[0].location.latitude;
-        console.log(latitude);
-        var longitude = response._embedded.events[15]._embedded.venues[0].location.longitude;
-
-
-        //get date and time of venue 1 and convert to unix for weather API call
-        var weatherLocal = apiEvents[15].dates.start.localTime;
-        console.log(weatherLocal);
-        var weatherDate = apiEvents[15].dates.start.localDate;
-        console.log(weatherDate);
       });
     }
 
@@ -239,6 +219,5 @@ $("body").on("click", ".SimilarFreeTime", function () {
   var eventChosen = $(this).val()
   tmDateString = eventChosen + ":00Z";
   tmDateString2 = eventChosen.slice(0, 11) + "23:59:59Z";
-  zip = user.zip;
   getEvents();
 })
