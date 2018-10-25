@@ -141,11 +141,23 @@ function getEvents() {
         $(divRowName).append(namespan);
 
         // create span to append book value to from array
-        var bookspan = $("<div>");
+
+        var bookspan = $("<a>");
         bookspan.addClass("col-md-12");
-        bookspan.html("Book: " + bookUrl);
+        var bookBtn = $("<button>");
+        bookspan.attr({
+          href: bookUrl,
+          target: "_blank"
+        });
+        bookBtn.html("Click here to buy tickets");
+        bookspan.append(bookBtn);
         // append name to row
         $(divRowBook).append(bookspan);
+        // var bookspan = $("<div>");
+        // bookspan.addClass("col-md-12");
+        // bookspan.html("Book: " + bookUrl);
+        // // append name to row
+        // $(divRowBook).append(bookspan);
 
         // create span to append weather summary value to from array
         var summaryspan = $("<div>");
