@@ -4,11 +4,13 @@
 zip = 60614;
 tmDateString = "2018-10-25T10:00:00Z";
 tmDateString2 = "2018-10-31T23:59:59Z";
+tmRadius = 50;
 apiEvents = [];
 apiVenueLocation = [];
 // Api url - includes zip and date. date is set as a range to then get time of day we need to leverage the data in the pull.heroku allows us to bypass CORS permission
-(tmUrl =
-  "https://cors-anywhere.herokuapp.com/https://app.ticketmaster.com/discovery/v2/events.json?"),
+
+// https://cors-anywhere.herokuapp.com/
+(tmUrl = "https://app.ticketmaster.com/discovery/v2/events.json?"),
   (tmZip = zip),
   (tmKey = "apikey=aw1x9XltYOH5uHXUYANmxJszqWA77OZR"),
   (tmDateStart = tmDateString),
@@ -24,7 +26,10 @@ apiVenueLocation = [];
     tmDateStart +
     "&" +
     "endDateTime=" +
-    tmDateEnd);
+    tmDateEnd +
+    "&" +
+    "radius=" +
+    tmRadius);
 
 //create an Ajax call
 $.ajax({
@@ -32,7 +37,7 @@ $.ajax({
   url: tmApiCall
 }).then(function(response) {
   //log the queryURL
-  // console.log(response);
+  console.log(response);
 
   apiEvents = response._embedded.events;
 
@@ -72,9 +77,9 @@ $.ajax({
 
     //Dark Sky Api Format
     //Needs to be lat , long , Unix time (this includes both date and time in its value)
+    // https://cors-anywhere.herokuapp.com/
     var apiKey = "1408b38a9701141fa75c8f041fca27e8",
-      url =
-        "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/",
+      url = "https://api.darksky.net/forecast/",
       lati = latitude,
       longi = longitude,
       unixTime = weatherTime,
@@ -155,10 +160,6 @@ $.ajax({
       // append name to row
       $(divRowName).append(namespan);
 
-      // span for date and time
-      var timespan = $("<div>");
-      timespan.addClass("col-md-12");
-
       // create span to append book value to from array
       var bookspan = $("<div>");
       bookspan.addClass("col-md-12");
@@ -186,6 +187,10 @@ $.ajax({
       rainspan.text("There is a " + precipProbability + " chance of rain");
       // append name to row
       $(divRowPrecip).append(rainspan);
+
+      // span for date and time
+      var timespan = $("<div>");
+      timespan.addClass("col-md-12");
 
       //set the text to date and time of event (needs work still to modify data)
       // timespan.text("When: " + apiEvents[i].dates.start.localTime + " " + apiEvents[i].dates.start.localDate);
