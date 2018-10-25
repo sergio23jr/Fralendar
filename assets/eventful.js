@@ -100,7 +100,7 @@ function getEventfulEvents() {
         imgEvent.attr({
           src:
             // "https://peopledotcom.files.wordpress.com/2017/09/surf-dog-6.jpg?w=768",
-            eventfulCall.events.event[i].image.medium.url
+            "https://peopledotcom.files.wordpress.com/2017/09/surf-dog-6.jpg?w=768",
         });
         imgEvent.addClass("col-md-4 eventImg")
 
