@@ -28,7 +28,7 @@ eventfulCall = [];
 $.ajax({
   type: "GET",
   url: eventfulApiCall
-}).then(function(response) {
+}).then(function (response) {
   //log the queryURL
   console.log(eventfulApiCall);
   //log the result and specific paramters
@@ -77,7 +77,7 @@ $.ajax({
     var weatherTime = eventfulStartTime;
     weatherTime = eventfulStartTime
       .split(" - ")
-      .map(function(date) {
+      .map(function (date) {
         return Date.parse(date + "-0500") / 1000;
       })
       .join(" - ");
@@ -98,7 +98,7 @@ $.ajax({
     $.ajax({
       type: "GET",
       url: dark_Sky_api_call
-    }).then(function(response) {
+    }).then(function (response) {
       //log the queryURL
 
       //log the result and specific paramters
@@ -188,12 +188,12 @@ $.ajax({
       addressspan.addClass("col-md-12");
       addressspan.text(
         eventfulCall.events.event[i].venue_address +
-          " " +
-          eventfulCall.events.event[i].city_name +
-          "," +
-          eventfulCall.events.event[i].region_abbr +
-          " " +
-          eventfulCall.events.event[i].postal_code
+        " " +
+        eventfulCall.events.event[i].city_name +
+        "," +
+        eventfulCall.events.event[i].region_abbr +
+        " " +
+        eventfulCall.events.event[i].postal_code
       );
 
       // append name to row

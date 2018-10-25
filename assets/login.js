@@ -3,9 +3,6 @@ var user = {};
 var userList = {};
 var newUser = false;
 
-//hides calendar elements by default
-$(".calendarHTML").hide();
-
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyDO5T58hrlOuSJhKNvgOjeXnrvqWgT41MQ",
@@ -25,7 +22,6 @@ $(".signin").on("click", e => {
     const auth = firebase.auth();
     //If statement to validate user input
     if (email.includes("@") && email.includes(".") && pass.length > 5) {
-
         //Sign in
         const promise = auth.signInWithEmailAndPassword(email, pass);
         //If error, log it to the console
@@ -82,8 +78,8 @@ $(".submit-name-zip").on("click", e => {
             zipNumCount++;
         }
     }
-    //Checks if the value is 6. If it is not it will not continue to firebase and it will stay at the current screen.
-    //It needs to be exactly 6 numbers as that is what we are using to pull the API from
+    //Checks if the value is 5 numbers long. If it is not it will not continue to firebase and it will stay at the current screen.
+    //It needs to be exactly 5 numbers as that is what we are using to pull the API from
     if (zipNumCount === 5 && zipCheck.length === 5) {
         //Maybe not the best pratice having it set the whole user log again, but it's what I can think of now
         $.when(
@@ -123,6 +119,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
         //Checks if the user has a name or zip in firebase
         //If they do not then likely new users and writes the data to firebase and asks for name and zip
         //Needs undefined if they are a new user
+
         if (newUser === true) {
             //Needs to pull write the user data and return the values before moving to the name & zip
             //The Name and zip then go on to generate the user list. If the user data is not written before then it will cause the user list to wipe
@@ -137,8 +134,14 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
         //Shows the div of the login success box
         $(".login-success").show();
         $(".login-form").hide();
+        $(".eventDisplay").show();
         //shows calendar
         $(".calendarHTML").show();
+        $("#calendar-card").show();
+        $("#fralendar-welcome").hide();
+        $("#fralendar-intro").hide();
+        $(".Calendar").show();
+        $(".eventbtn").show();
         //Displays the username on screen
         displayUserName();
     } else {
@@ -149,6 +152,13 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
         $(".login-form").show();
         //hide calendar on logout
         $(".calendarHTML").hide();
+        $(".eventDisplay").hide();
+        $(".eventDisplay").hide();
+        $("#calendar-card").hide();
+        $("#fralendar-welcome").show();
+        $("#fralendar-intro").show();
+        $(".Calendar").hide();
+        $(".eventbtn").hide();
         //Clears the user object to show that they logged out
         user = {};
         //This updates the text fields so if the user logs out the registers again it shows null
