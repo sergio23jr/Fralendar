@@ -2,20 +2,45 @@
 var eventfulDateString = "2018102500-2018103100";
 var eventfulRadius = 1;
 var eventfulCall = [];
+var CORS = "https://cors-anywhere.herokuapp.com/";
 
 //Api url - includes zip and date. date is set as a range to then get time of day we need to leverage the data in the pull. heroku to get around CORS permissions
 // https://cors-anywhere.herokuapp.com/
-var eventfulUrl = "https://api.eventful.com/json/events/search?"
-var eventfulKey = "app_key=SbhFzbfzfXwhtkTg"
-var eventfulApiCall = eventfulUrl + "location=" + zip + "&" + eventfulKey + "&date=" + eventfulDateString + "&" + "within=" + eventfulRadius + "&page_size=5&sort_order=popularity";
+var eventfulUrl = "https://api.eventful.com/json/events/search?";
+var eventfulKey = "app_key=SbhFzbfzfXwhtkTg";
+var eventfulApiCall =
+  CORS +
+  eventfulUrl +
+  "location=" +
+  zip +
+  "&" +
+  eventfulKey +
+  "&date=" +
+  eventfulDateString +
+  "&" +
+  "within=" +
+  eventfulRadius +
+  "&page_size=5&sort_order=popularity";
 
 function getEventfulEvents() {
-  eventfulApiCall = eventfulUrl + "location=" + zip + "&" + eventfulKey + "&date=" + eventfulDateString + "&" + "within=" + eventfulRadius + "&page_size=5&sort_order=popularity";
+  eventfulApiCall =
+    CORS +
+    eventfulUrl +
+    "location=" +
+    zip +
+    "&" +
+    eventfulKey +
+    "&date=" +
+    eventfulDateString +
+    "&" +
+    "within=" +
+    eventfulRadius +
+    "&page_size=5&sort_order=popularity";
   //create an Ajax call
   $.ajax({
     type: "GET",
     url: eventfulApiCall
-  }).then(function (response) {
+  }).then(function(response) {
     //log the result and specific paramters
 
     //log the object response. This feeds as an XML thus we need to JSON. PARSE
@@ -24,7 +49,7 @@ function getEventfulEvents() {
     for (let i = 0; i < eventfulCall.events.event.length; i++) {
       // variable holds the title of the events
       var eventTitle = eventfulCall.events.event[i].title;
-
+      console.log(eventfulCall.events);
       //variable holds the name of venue
       var eventVenueName = eventfulCall.events.event[i].venue_name;
 
@@ -58,7 +83,7 @@ function getEventfulEvents() {
       var weatherTime = eventfulStartTime;
       weatherTime = eventfulStartTime
         .split(" - ")
-        .map(function (date) {
+        .map(function(date) {
           return Date.parse(date + "-0500") / 1000;
         })
         .join(" - ");
@@ -72,14 +97,14 @@ function getEventfulEvents() {
         longi = eventfulLongitude,
         unixTime = weatherTime,
         dark_Sky_api_call =
-          url + apiKey + "/" + lati + "," + longi + "," + unixTime;
+          CORS + url + apiKey + "/" + lati + "," + longi + "," + unixTime;
 
       //Run the Weather Api
 
       $.ajax({
         type: "GET",
         url: dark_Sky_api_call
-      }).then(function (response) {
+      }).then(function(response) {
         //log the queryURL
 
         //log the result and specific paramters
@@ -88,7 +113,8 @@ function getEventfulEvents() {
 
         var weatherSummary = response.currently.summary;
 
-        var precipProbability = response.currently.precipProbability * 100 + "%";
+        var precipProbability =
+          response.currently.precipProbability * 100 + "%";
 
         // creates div to append all info of event along with needed attributes
         var parentEvent = $("<div>");
@@ -99,12 +125,11 @@ function getEventfulEvents() {
         var imgEvent = $("<img>");
         imgEvent.attr({
           src:
-            // "https://peopledotcom.files.wordpress.com/2017/09/surf-dog-6.jpg?w=768",
-            "https://peopledotcom.files.wordpress.com/2017/09/surf-dog-6.jpg?w=768",
+            //  eventfulCall.events.event[i].image.medium.url
+            "https://peopledotcom.files.wordpress.com/2017/09/surf-dog-6.jpg?w=768"
+
         });
-        imgEvent.addClass("col-md-4 eventImg")
-
-
+        imgEvent.addClass("col-md-4 eventImg");
 
         //creating a div for the remaining 8 columns needed per bootstrap
         var divColumn = $("<div>");
@@ -148,8 +173,7 @@ function getEventfulEvents() {
         //adding picture plus a new div to insert all other info
         parentEvent.append([imgEvent, divColumn]);
 
-        $(".eventImg").css({ "height": "200px" })
-
+        $(".eventImg").css({ height: "200px" });
 
         // create span to append event name to from array
         var namespan = $("<div>");
@@ -174,12 +198,12 @@ function getEventfulEvents() {
         addressspan.addClass("col-md-12");
         addressspan.text(
           eventfulCall.events.event[i].venue_address +
-          " " +
-          eventfulCall.events.event[i].city_name +
-          "," +
-          eventfulCall.events.event[i].region_abbr +
-          " " +
-          eventfulCall.events.event[i].postal_code
+            " " +
+            eventfulCall.events.event[i].city_name +
+            "," +
+            eventfulCall.events.event[i].region_abbr +
+            " " +
+            eventfulCall.events.event[i].postal_code
         );
 
         // append name to row
@@ -223,7 +247,7 @@ function getEventfulEvents() {
 
         $(".eventDisplay").append(parentEvent);
 
-        $(".eventDiv").css({ "border": "2px solid black", "margin-top": "5px" })
+        $(".eventDiv").css({ border: "2px solid black", "margin-top": "5px" });
 
         //weather close tag
       });
