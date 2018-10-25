@@ -115,7 +115,6 @@ $(".calendar-btn").on("click", function () {
 function updateCalendar() {
     for (var key in userFreeTime) {
         if (userFreeTime[key] == 1) {
-            console.log(key)
             $(`.btn .btn-block .calendar-btn .` + key).val("1")
             $(`.` + key).removeClass("btn-danger")
             $(`.` + key).addClass("btn-success");

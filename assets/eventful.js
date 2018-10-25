@@ -1,4 +1,3 @@
-var zip = 60614;
 //extra values of 00 at the end of YYYYMMDD
 var eventfulDateString = "2018102500-2018103100";
 var eventfulRadius = 1;
@@ -277,14 +276,3 @@ function getEventfulEvents() {
     //document close tag
   });
 }
-
-$("body").on("click", ".SimilarFreeTime", function () {
-  $(".eventDisplay").empty();
-  var eventChosen = $(this).val()
-  var eventYear = eventChosen.slice(0, 4)
-  var eventMonth = eventChosen.slice(5, 7)
-  var eventDay = eventChosen.slice(8, 10)
-  eventfulDateString = eventYear + eventMonth + eventDay + "00-" + eventYear + eventMonth + eventDay + "00"
-  console.log(eventfulDateString)
-  getEventfulEvents();
-})
