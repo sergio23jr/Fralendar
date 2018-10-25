@@ -17,8 +17,6 @@ function getEvents() {
     type: "GET",
     url: tmApiCall
   }).then(function (response) {
-    //log the queryURL
-    console.log(response);
 
     apiEvents = response._embedded.events;
 
@@ -54,7 +52,7 @@ function getEvents() {
           return Date.parse(date + "-0500") / 1000;
         })
         .join(" - ");
-      // console.log(weatherTime);
+
 
       //Dark Sky Api Format
       //Needs to be lat , long , Unix time (this includes both date and time in its value)
@@ -77,11 +75,11 @@ function getEvents() {
         //log the result and specific paramters
 
         var temp = response.currently.temperature + "°F";
-        // console.log(temp);
+
         var weatherSummary = response.currently.summary;
-        // console.log(weatherSummary);
+
         var precipProbability = response.currently.precipProbability * 100 + "%";
-        // console.log(precipProbability);
+
 
         // creates div to append all info of event along with needed attributes
         var parentEvent = $("<div>");
@@ -141,11 +139,23 @@ function getEvents() {
         $(divRowName).append(namespan);
 
         // create span to append book value to from array
-        var bookspan = $("<div>");
+
+        var bookspan = $("<a>");
         bookspan.addClass("col-md-12");
-        bookspan.html("Book: " + bookUrl);
+        var bookBtn = $("<button>");
+        bookspan.attr({
+          href: bookUrl,
+          target: "_blank"
+        });
+        bookBtn.html("Click here to buy tickets");
+        bookspan.append(bookBtn);
         // append name to row
         $(divRowBook).append(bookspan);
+        // var bookspan = $("<div>");
+        // bookspan.addClass("col-md-12");
+        // bookspan.html("Book: " + bookUrl);
+        // // append name to row
+        // $(divRowBook).append(bookspan);
 
         // create span to append weather summary value to from array
         var summaryspan = $("<div>");
