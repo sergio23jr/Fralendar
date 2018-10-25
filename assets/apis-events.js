@@ -100,11 +100,6 @@ function getEvents() {
         divRowTime.addClass(["row", "info"]);
         divColumn.append(divRowTime);
 
-        //creating a new row to insert book url
-        var divRowBook = $("<div>");
-        divRowBook.addClass(["row", "info"]);
-        divColumn.append(divRowBook);
-
         //creating a new row to insert Weather Summary
         var divRowSummary = $("<div>");
         divRowSummary.addClass(["row", "info"]);
@@ -133,13 +128,13 @@ function getEvents() {
         // span for date and time
         var timespan = $("<div>");
         timespan.addClass("col-md-12");
+        //append to row
+        $(divRowTime).append(timespan);
+
+
 
         // create span to append book value to from array
-        var bookspan = $("<div>");
-        bookspan.addClass("col-md-12");
-        bookspan.html("Book: " + bookUrl);
-        // append name to row
-        $(divRowBook).append(bookspan);
+
 
         // create span to append weather summary value to from array
         var summaryspan = $("<div>");
@@ -166,8 +161,19 @@ function getEvents() {
         // timespan.text("When: " + apiEvents[i].dates.start.localTime + " " + apiEvents[i].dates.start.localDate);
         timespan.text("When: " + getTimeAndDate(time, date));
 
-        //append to row
-        $(divRowTime).append(timespan);
+        //creating a new row to insert book url
+        var divRowBook = $("<div>");
+        divRowBook.addClass(["row", "info"]);
+        divColumn.append(divRowBook);
+
+        var bookspan = $("<a>");
+        bookspan.addClass("col-md-12");
+        var bookBtn = $("<button>")
+        bookspan.attr({ href: bookUrl, target: "_blank" });
+        bookBtn.html("Click here to buy tickets");
+        bookspan.append(bookBtn)
+        // append name to row
+        $(divRowBook).append(bookspan);
 
         //append event to document
         $(".eventDisplay").append(parentEvent);
