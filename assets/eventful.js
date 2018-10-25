@@ -5,7 +5,7 @@ var eventfulCall = [];
 
 //Api url - includes zip and date. date is set as a range to then get time of day we need to leverage the data in the pull. heroku to get around CORS permissions
 // https://cors-anywhere.herokuapp.com/
-var eventfulUrl = "http://api.eventful.com/json/events/search?"
+var eventfulUrl = "https://api.eventful.com/json/events/search?"
 var eventfulKey = "app_key=SbhFzbfzfXwhtkTg"
 var eventfulApiCall = eventfulUrl + "location=" + zip + "&" + eventfulKey + "&date=" + eventfulDateString + "&" + "within=" + eventfulRadius + "&page_size=5&sort_order=popularity";
 
