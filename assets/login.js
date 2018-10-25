@@ -49,7 +49,7 @@ $(".register").on("click", e => {
         //TODO: If error make it modolo instead of console logging it
         newUser = true;
         clearInputForms();
-        addNewUserToCalendar();
+
         //If the validation wasn't correct
     } else {
         showLoginModal();
@@ -68,6 +68,7 @@ $(".submit-name-zip").on("click", e => {
     user.zip = $(".zip-input").val();
     var zipCheck = user.zip;
     var zipNumCount = 0;
+    addNewUserToCalendar();
     //Input validation for the zip code
     //First make an array with the zip code
     for (var i = 0; i < user.zip.length; i++) {
