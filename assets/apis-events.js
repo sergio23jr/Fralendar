@@ -6,11 +6,11 @@ var tmDateString2 = "";
 var apiEvents = [];
 var apiVenueLocation = [];
 // Api url - includes zip and date. date is set as a range to then get time of day we need to leverage the data in the pull.heroku allows us to bypass CORS permission
-var tmApiCall = "https://cors-anywhere.herokuapp.com/https://app.ticketmaster.com/discovery/v2/events.json?apikey=aw1x9XltYOH5uHXUYANmxJszqWA77OZR&postalCode=" + zip + "&" + "startDateTime=" + tmDateString + "&" + "endDateTime=" + tmDateString2;
+var tmApiCall = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=aw1x9XltYOH5uHXUYANmxJszqWA77OZR&postalCode=" + zip + "&" + "startDateTime=" + tmDateString + "&" + "endDateTime=" + tmDateString2;
 
 //create an Ajax call
 function getEvents() {
-  tmApiCall = "https://cors-anywhere.herokuapp.com/https://app.ticketmaster.com/discovery/v2/events.json?apikey=aw1x9XltYOH5uHXUYANmxJszqWA77OZR&postalCode=" + zip + "&" + "startDateTime=" + tmDateString + "&" + "endDateTime=" + tmDateString2;
+  tmApiCall = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=aw1x9XltYOH5uHXUYANmxJszqWA77OZR&postalCode=" + zip + "&" + "startDateTime=" + tmDateString + "&" + "endDateTime=" + tmDateString2;
 
   //create an Ajax call
   $.ajax({
@@ -74,7 +74,6 @@ function getEvents() {
         url: dark_Sky_api_call
       }).then(function (response) {
         //log the queryURL
-
         //log the result and specific paramters
 
         var temp = response.currently.temperature + "°F";
@@ -221,12 +220,20 @@ function getEvents() {
     var correctDateFormat = eventDate + " at " + correctTimeFormat + am_pm;
     return correctDateFormat;
   }
+
 };
 
 
 $("body").on("click", ".SimilarFreeTime", function () {
   $(".eventDisplay").empty();
   var eventChosen = $(this).val()
+  var eventYear = eventChosen.slice(0, 4)
+  var eventMonth = eventChosen.slice(5, 7)
+  var eventDay = eventChosen.slice(8, 10)
+  eventfulDateString = eventYear + eventMonth + eventDay + "00-" + eventYear + eventMonth + eventDay + "00"
+  getEventfulEvents();
+
+  //Gets TicketMaster Data as well
   tmDateString = eventChosen + ":00Z";
   tmDateString2 = eventChosen.slice(0, 11) + "23:59:59Z";
   getEvents();
