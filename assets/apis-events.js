@@ -5,19 +5,37 @@ var tmDateString = "";
 var tmDateString2 = "";
 var apiEvents = [];
 var apiVenueLocation = [];
+var CORS = "https://cors-anywhere.herokuapp.com/";
 // Api url - includes zip and date. date is set as a range to then get time of day we need to leverage the data in the pull.heroku allows us to bypass CORS permission
-var tmApiCall = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=aw1x9XltYOH5uHXUYANmxJszqWA77OZR&postalCode=" + zip + "&" + "startDateTime=" + tmDateString + "&" + "endDateTime=" + tmDateString2;
+var tmApiCall =
+  CORS +
+  "https://app.ticketmaster.com/discovery/v2/events.json?apikey=aw1x9XltYOH5uHXUYANmxJszqWA77OZR&postalCode=" +
+  zip +
+  "&" +
+  "startDateTime=" +
+  tmDateString +
+  "&" +
+  "endDateTime=" +
+  tmDateString2;
 
 //create an Ajax call
 function getEvents() {
-  tmApiCall = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=aw1x9XltYOH5uHXUYANmxJszqWA77OZR&postalCode=" + zip + "&" + "startDateTime=" + tmDateString + "&" + "endDateTime=" + tmDateString2;
+  tmApiCall =
+    CORS +
+    "https://app.ticketmaster.com/discovery/v2/events.json?apikey=aw1x9XltYOH5uHXUYANmxJszqWA77OZR&postalCode=" +
+    zip +
+    "&" +
+    "startDateTime=" +
+    tmDateString +
+    "&" +
+    "endDateTime=" +
+    tmDateString2;
 
   //create an Ajax call
   $.ajax({
     type: "GET",
     url: tmApiCall
-  }).then(function (response) {
-
+  }).then(function(response) {
     apiEvents = response._embedded.events;
 
     //Loop populates document with events
@@ -48,11 +66,10 @@ function getEvents() {
       var weatherTime = weatherCombined;
       weatherTime = weatherCombined
         .split(" - ")
-        .map(function (date) {
+        .map(function(date) {
           return Date.parse(date + "-0500") / 1000;
         })
         .join(" - ");
-
 
       //Dark Sky Api Format
       //Needs to be lat , long , Unix time (this includes both date and time in its value)
@@ -63,14 +80,14 @@ function getEvents() {
         longi = longitude,
         unixTime = weatherTime,
         dark_Sky_api_call =
-          url + apiKey + "/" + lati + "," + longi + "," + unixTime;
+          CORS + url + apiKey + "/" + lati + "," + longi + "," + unixTime;
 
       //Run the Weather Api
 
       $.ajax({
         type: "GET",
         url: dark_Sky_api_call
-      }).then(function (response) {
+      }).then(function(response) {
         //log the queryURL
         //log the result and specific paramters
 
@@ -78,8 +95,8 @@ function getEvents() {
 
         var weatherSummary = response.currently.summary;
 
-        var precipProbability = response.currently.precipProbability * 100 + "%";
-
+        var precipProbability =
+          response.currently.precipProbability * 100 + "%";
 
         // creates div to append all info of event along with needed attributes
         var parentEvent = $("<div>");
@@ -189,7 +206,6 @@ function getEvents() {
         //append to row
         $(divRowTime).append(timespan);
 
-
         //append event to document
         $(".eventDisplay").append(parentEvent);
       });
@@ -230,21 +246,27 @@ function getEvents() {
     var correctDateFormat = eventDate + " at " + correctTimeFormat + am_pm;
     return correctDateFormat;
   }
+}
 
-};
-
-
-$("body").on("click", ".SimilarFreeTime", function () {
+$("body").on("click", ".SimilarFreeTime", function() {
   $(".eventDisplay").empty();
-  var eventChosen = $(this).val()
-  var eventYear = eventChosen.slice(0, 4)
-  var eventMonth = eventChosen.slice(5, 7)
-  var eventDay = eventChosen.slice(8, 10)
-  eventfulDateString = eventYear + eventMonth + eventDay + "00-" + eventYear + eventMonth + eventDay + "00"
+  var eventChosen = $(this).val();
+  var eventYear = eventChosen.slice(0, 4);
+  var eventMonth = eventChosen.slice(5, 7);
+  var eventDay = eventChosen.slice(8, 10);
+  eventfulDateString =
+    eventYear +
+    eventMonth +
+    eventDay +
+    "00-" +
+    eventYear +
+    eventMonth +
+    eventDay +
+    "00";
   getEventfulEvents();
 
   //Gets TicketMaster Data as well
   tmDateString = eventChosen + ":00Z";
   tmDateString2 = eventChosen.slice(0, 11) + "23:59:59Z";
   getEvents();
-})
+});
