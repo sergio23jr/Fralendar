@@ -16,15 +16,11 @@ function getEventfulEvents() {
     type: "GET",
     url: eventfulApiCall
   }).then(function (response) {
-    //log the queryURL
-    console.log(eventfulApiCall);
     //log the result and specific paramters
-    // console.log(response);
 
     //log the object response. This feeds as an XML thus we need to JSON. PARSE
     //NEED TO PARSE RESPONSES BECAUSE ITS COMING IN AS XML
     eventfulCall = JSON.parse(response);
-    console.log(eventfulCall);
     for (let i = 0; i < eventfulCall.events.event.length; i++) {
       // variable holds the title of the events
       var eventTitle = eventfulCall.events.event[i].title;
@@ -55,8 +51,6 @@ function getEventfulEvents() {
       //variable holds venue start date and time
 
       eventfulStartTime = eventfulCall.events.event[i].start_time;
-
-      // console.log(eventfulStartTime);
 
       //convert start date and time to Unix for weather api
 
