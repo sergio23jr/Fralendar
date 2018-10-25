@@ -3,9 +3,6 @@ var user = {};
 var userList = {};
 var newUser = false;
 
-//hides calendar elements by default
-$(".calendarHTML").hide();
-
 // Initialize Firebase
 var config = {
   apiKey: "AIzaSyDO5T58hrlOuSJhKNvgOjeXnrvqWgT41MQ",
@@ -25,6 +22,7 @@ $(".signin").on("click", e => {
   const auth = firebase.auth();
   //If statement to validate user input
   if (email.includes("@") && email.includes(".") && pass.length > 5) {
+    console.log(pass, auth);
     //Sign in
     const promise = auth.signInWithEmailAndPassword(email, pass);
     //If error, log it to the console
@@ -122,18 +120,19 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
     //Checks if the user has a name or zip in firebase
     //If they do not then likely new users and writes the data to firebase and asks for name and zip
     //Needs undefined if they are a new user
-  }
-  if (newUser === true) {
-    //Needs to pull write the user data and return the values before moving to the name & zip
-    //The Name and zip then go on to generate the user list. If the user data is not written before then it will cause the user list to wipe
-    //This is because the object is while we are waiting for firebase to send back data for it to be written locally
-    writeUserData(firebaseUser);
-    getNameAndZip();
-  }
-  //If user account already has a name then populate the User List
-  if (user.name !== undefined) {
-    getUserList();
 
+    if (newUser === true) {
+      //Needs to pull write the user data and return the values before moving to the name & zip
+      //The Name and zip then go on to generate the user list. If the user data is not written before then it will cause the user list to wipe
+      //This is because the object is while we are waiting for firebase to send back data for it to be written locally
+      writeUserData(firebaseUser);
+      getNameAndZip();
+    }
+    //If user account already has a name then populate the User List
+    if (user.name !== undefined) {
+      getUserList();
+    }
+    console.log("why won't this work");
     //Shows the div of the login success box
     $(".login-success").show();
     $(".login-form").hide();
