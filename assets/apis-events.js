@@ -181,7 +181,7 @@ function getEvents() {
 
 
         //append event to document
-        $(".Events").append(parentEvent);
+        $(".eventDisplay").append(parentEvent);
       });
     }
   });
