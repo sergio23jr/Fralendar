@@ -94,6 +94,7 @@ $(".submit-name-zip").on("click", e => {
                     zip: user.zip
                 })
         ).done(getNameAndZip());
+        $(".calendarHTML").show();
     } else {
         showNameZipModal();
     }
@@ -121,13 +122,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
         //If they do not then likely new users and writes the data to firebase and asks for name and zip
         //Needs undefined if they are a new user
 
-        if (newUser === true) {
-            //Needs to pull write the user data and return the values before moving to the name & zip
-            //The Name and zip then go on to generate the user list. If the user data is not written before then it will cause the user list to wipe
-            //This is because the object is while we are waiting for firebase to send back data for it to be written locally
-            writeUserData(firebaseUser);
-            getNameAndZip();
-        }
+
         //If user account already has a name then populate the User List
         if (user.name !== undefined) {
             getUserList();
@@ -145,6 +140,14 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
         $(".eventbtn").show();
         //Displays the username on screen
         displayUserName();
+        if (newUser === true) {
+            //Needs to pull write the user data and return the values before moving to the name & zip
+            //The Name and zip then go on to generate the user list. If the user data is not written before then it will cause the user list to wipe
+            //This is because the object is while we are waiting for firebase to send back data for it to be written locally
+            writeUserData(firebaseUser);
+            getNameAndZip()
+            $(".calendarHTML").hide();
+        }
     } else {
         //This runs when no user is logged in
         console.log("Logged Out");
