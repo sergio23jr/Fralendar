@@ -1,3 +1,5 @@
+// need to adjust and add location
+
 var zip = 60614;
 var tmDateString = "";
 var tmDateString2 = "";
@@ -10,10 +12,13 @@ var tmApiCall = "https://cors-anywhere.herokuapp.com/https://app.ticketmaster.co
 function getEvents() {
   tmApiCall = "https://cors-anywhere.herokuapp.com/https://app.ticketmaster.com/discovery/v2/events.json?apikey=aw1x9XltYOH5uHXUYANmxJszqWA77OZR&postalCode=" + zip + "&" + "startDateTime=" + tmDateString + "&" + "endDateTime=" + tmDateString2;
 
+  //create an Ajax call
   $.ajax({
     type: "GET",
     url: tmApiCall
   }).then(function (response) {
+    //log the queryURL
+    console.log(response);
 
     apiEvents = response._embedded.events;
 
@@ -49,12 +54,13 @@ function getEvents() {
           return Date.parse(date + "-0500") / 1000;
         })
         .join(" - ");
+      // console.log(weatherTime);
 
       //Dark Sky Api Format
       //Needs to be lat , long , Unix time (this includes both date and time in its value)
+      // https://cors-anywhere.herokuapp.com/
       var apiKey = "1408b38a9701141fa75c8f041fca27e8",
-        url =
-          "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/",
+        url = "https://api.darksky.net/forecast/",
         lati = latitude,
         longi = longitude,
         unixTime = weatherTime,
@@ -67,11 +73,16 @@ function getEvents() {
         type: "GET",
         url: dark_Sky_api_call
       }).then(function (response) {
+        //log the queryURL
 
         //log the result and specific paramters
+
         var temp = response.currently.temperature + "°F";
+        // console.log(temp);
         var weatherSummary = response.currently.summary;
+        // console.log(weatherSummary);
         var precipProbability = response.currently.precipProbability * 100 + "%";
+        // console.log(precipProbability);
 
         // creates div to append all info of event along with needed attributes
         var parentEvent = $("<div>");
@@ -100,6 +111,11 @@ function getEvents() {
         divRowTime.addClass(["row", "info"]);
         divColumn.append(divRowTime);
 
+        //creating a new row to insert book url
+        var divRowBook = $("<div>");
+        divRowBook.addClass(["row", "info"]);
+        divColumn.append(divRowBook);
+
         //creating a new row to insert Weather Summary
         var divRowSummary = $("<div>");
         divRowSummary.addClass(["row", "info"]);
@@ -125,16 +141,12 @@ function getEvents() {
         // append name to row
         $(divRowName).append(namespan);
 
-        // span for date and time
-        var timespan = $("<div>");
-        timespan.addClass("col-md-12");
-        //append to row
-        $(divRowTime).append(timespan);
-
-
-
         // create span to append book value to from array
-
+        var bookspan = $("<div>");
+        bookspan.addClass("col-md-12");
+        bookspan.html("Book: " + bookUrl);
+        // append name to row
+        $(divRowBook).append(bookspan);
 
         // create span to append weather summary value to from array
         var summaryspan = $("<div>");
@@ -157,30 +169,22 @@ function getEvents() {
         // append name to row
         $(divRowPrecip).append(rainspan);
 
+        // span for date and time
+        var timespan = $("<div>");
+        timespan.addClass("col-md-12");
+
         //set the text to date and time of event (needs work still to modify data)
         // timespan.text("When: " + apiEvents[i].dates.start.localTime + " " + apiEvents[i].dates.start.localDate);
         timespan.text("When: " + getTimeAndDate(time, date));
 
-        //creating a new row to insert book url
-        var divRowBook = $("<div>");
-        divRowBook.addClass(["row", "info"]);
-        divColumn.append(divRowBook);
+        //append to row
+        $(divRowTime).append(timespan);
 
-        var bookspan = $("<a>");
-        bookspan.addClass("col-md-12");
-        var bookBtn = $("<button>")
-        bookspan.attr({ href: bookUrl, target: "_blank" });
-        bookBtn.html("Click here to buy tickets");
-        bookspan.append(bookBtn)
-        // append name to row
-        $(divRowBook).append(bookspan);
 
         //append event to document
-        $(".eventDisplay").append(parentEvent);
-
+        $(".Events").append(parentEvent);
       });
     }
-
   });
 
   function getTimeAndDate(eventTime, eventDate) {
